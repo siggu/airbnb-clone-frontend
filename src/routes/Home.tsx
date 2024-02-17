@@ -42,7 +42,7 @@ export default function Home() {
           pk={room.pk}
           isOwner={room.is_owner}
           imageUrl={
-            room.photos[0]?.file ?? `https://source.unsplash.com/random/450x450`
+            room.photos[0]?.file ?? `https://source.unsplash.com/random`
           }
           name={room.name}
           rating={room.rating}
