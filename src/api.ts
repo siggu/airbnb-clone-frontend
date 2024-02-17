@@ -6,7 +6,7 @@ const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:8000/api/v1/"
-      : "https://airbnbclone-7bt0.onrender.com",
+      : "https://mokugyo.biz",
   withCredentials: true,
 });
 
