@@ -13,24 +13,38 @@ import useHostOnlyPage from "../components/HostOnlyPage";
 import ProtectedPage from "../components/ProtectedPage";
 import { Helmet } from "react-helmet";
 import { useMutation } from "@tanstack/react-query";
-import { getUploadURL } from "../api";
+import { getUploadURL, uploadImage } from "../api";
 
 interface IForm {
   file: FileList;
 }
 
+interface IUploadRULResponse {
+  id: string;
+  uploadURL: string;
+}
+
 export default function UploadPhotos() {
-  const { register, handleSubmit } = useForm<IForm>();
-  const mutation = useMutation({
-    mutationFn: getUploadURL,
+  const { register, handleSubmit, watch } = useForm<IForm>();
+  const { roomPk } = useParams();
+  const uploadImageMutation = useMutation({
+    mutationFn: uploadImage,
     onSuccess: (data: any) => {
       console.log(data);
     },
   });
-  const { roomPk } = useParams();
+  const upLoadURLMutation = useMutation({
+    mutationFn: getUploadURL,
+    onSuccess: (data: IUploadRULResponse) => {
+      uploadImageMutation.mutate({
+        uploadURL: data.uploadURL,
+        file: watch("file"),
+      });
+    },
+  });
   useHostOnlyPage();
   const onSubmit = (data: any) => {
-    mutation.mutate();
+    upLoadURLMutation.mutate();
   };
   return (
     <ProtectedPage>
