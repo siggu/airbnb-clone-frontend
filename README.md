@@ -90,6 +90,8 @@
    <br>
    5.5 [Upload Form](#upload-form-1)
    <br>
+   5.6 [One Time Upload](#one-time-upload)
+   <br>
 6. [CALENDER](#calender)
    <br>
    6.1 [Calender Component](#calender-component)
@@ -5702,6 +5704,10 @@ GithubConfirm [x]
     ```
 
     > `Cloud Flare` 결제 필요로 인한 섹션 중단
+
+<br>
+
+### One Time Upload
 
 ---
 
