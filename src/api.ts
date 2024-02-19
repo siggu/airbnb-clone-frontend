@@ -163,6 +163,7 @@ export const uploadImage = ({ file, uploadURL }: IUploadImageVariables) => {
     .post(uploadURL, form, {
       headers: {
         "Content-Type": "multipart/form-data",
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
       },
     })
     .then((response) => response.data);
@@ -185,7 +186,8 @@ export const createPhoto = ({
       { description, file },
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookie.get("csrftoken") || "",
         },
       }
     )

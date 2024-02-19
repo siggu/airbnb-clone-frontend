@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { checkBooking, getRoom, getRoomReviews } from "../api";
-import { IReview, IRoomDetail } from "../types";
+import { checkBooking, getRoom, getRoomReviews, getAmenities } from "../api";
+import { IAmenity, IReview, IRoomDetail } from "../types";
 import {
   Avatar,
   Box,
@@ -36,6 +36,12 @@ export default function RoomDetail() {
     queryKey: [`rooms`, roomPk, `reviews`],
     queryFn: getRoomReviews,
   });
+  const { data: amenities, isLoading: isAmenitiesLoading } = useQuery<
+    IAmenity[]
+  >({
+    queryKey: ["amenities"],
+    queryFn: getAmenities,
+  });
   const [dates, setDates] = useState<Date[]>();
   const { data: checkBookingData, isLoading: isCheckingBooking } = useQuery({
     queryKey: ["check", roomPk, dates],
@@ -50,11 +56,12 @@ export default function RoomDetail() {
         sm: 10,
         lg: 20,
       }}
+      py={5}
     >
       <Helmet>
         <title>{data ? data.name : "loading..."}</title>
       </Helmet>
-      <Skeleton height={"43px"} width={"25%"} isLoaded={!isLoading}>
+      <Skeleton height={"43px"} width={"100%"} isLoaded={!isLoading}>
         <Heading>{data?.name}</Heading>
       </Skeleton>
       <Grid
@@ -86,10 +93,16 @@ export default function RoomDetail() {
           </GridItem>
         ))}
       </Grid>
-      <Grid gap={60} templateColumns={"2fr 1fr"}>
+      <Grid
+        gap={10}
+        templateColumns={{
+          md: "1fr 1fr",
+          lg: "2fr 1fr",
+        }}
+      >
         <Box>
           <HStack justifyContent={"space-between"} mt={10}>
-            <VStack alignItems={"flex-start"}>
+            <VStack noOfLines={1} alignItems={"flex-start"}>
               <Skeleton isLoaded={!isLoading} height={"30px"}>
                 <Heading fontSize={"2xl"}>
                   House hosted by {data?.owner.username}
@@ -117,7 +130,8 @@ export default function RoomDetail() {
             <Heading mb={5} fontSize={"2xl"}>
               <Skeleton w={"50%"} isLoaded={!isLoading} height={"30px"}>
                 <HStack>
-                  <FaStar /> <Text> {data?.rating}</Text>
+                  <FaStar />
+                  <Text>{data?.rating}</Text>
                   <Text>•</Text>
                   <Text>
                     {reviewsData?.length} review
@@ -138,7 +152,6 @@ export default function RoomDetail() {
                               <Skeleton w={"200px"} h="25px">
                                 <Heading fontSize={"md"}>Loading...</Heading>
                               </Skeleton>
-
                               <Skeleton w={"50px"} h="10px">
                                 <HStack spacing={1}>
                                   <FaStar size={"12px"}></FaStar>
@@ -202,6 +215,29 @@ export default function RoomDetail() {
           {!isCheckingBooking && !checkBookingData?.ok ? (
             <Text color={"red.500"}>Can't book on those dates, sorry</Text>
           ) : null}
+        </Box>
+        <Box pt={10}>
+          <Skeleton w={"100%"} isLoaded={!isLoading} height={"30px"}>
+            <Heading fontSize={"2xl"}>Amenities</Heading>
+            <Grid mt={5} gap={5} templateColumns={"repeat(2, 1fr)"}>
+              {amenities &&
+                amenities.map((amenity, index) => (
+                  <>
+                    <VStack spacing={3} alignItems={"flex-start"}>
+                      <Text fontSize={18} key={index}>
+                        {amenity.name}
+                      </Text>
+                      <Text>
+                        :{" "}
+                        {amenity.description
+                          ? amenity.description
+                          : amenity.name}
+                      </Text>
+                    </VStack>
+                  </>
+                ))}
+            </Grid>
+          </Skeleton>
         </Box>
       </Grid>
     </Box>

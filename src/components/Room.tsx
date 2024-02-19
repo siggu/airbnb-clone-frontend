@@ -69,7 +69,7 @@ export default function Room({
           </Button>
         </Box>
         <Box>
-          <Grid gap={2} templateColumns={"20fr 1fr"}>
+          <Grid gap={2} templateColumns={"10fr 1fr"}>
             <Text display={"block"} noOfLines={1} as="b" fontSize={"md"}>
               {name}
             </Text>

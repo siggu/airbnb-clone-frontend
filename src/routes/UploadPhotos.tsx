@@ -64,7 +64,7 @@ export default function UploadPhotos() {
   });
   useHostOnlyPage();
   const onSubmit = (data: any) => {
-    upLoadURLMutation.mutate();
+    upLoadURLMutation.mutate(data.file);
   };
   return (
     <ProtectedPage>

@@ -21,9 +21,8 @@ export default function Home() {
       columnGap={"4"}
       rowGap={"8"}
       templateColumns={{
-        sm: "1fr",
-        md: "2fr",
-        lg: "repeat(3, 1fr)",
+        sm: "1fr 1fr",
+        md: "repeat(3, 1fr)",
         xl: "repeat(4, 1fr)",
         "2xl": "repeat(5, 1fr)",
       }}
