@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { checkBooking, getRoom, getRoomReviews, getAmenities } from "../api";
+import {
+  checkBooking,
+  getRoom,
+  getRoomReviews,
+  getRoomAmenities,
+} from "../api";
 import { IAmenity, IReview, IRoomDetail } from "../types";
 import {
   Avatar,
@@ -39,8 +44,8 @@ export default function RoomDetail() {
   const { data: amenities, isLoading: isAmenitiesLoading } = useQuery<
     IAmenity[]
   >({
-    queryKey: ["amenities"],
-    queryFn: getAmenities,
+    queryKey: ["amenities", roomPk],
+    queryFn: getRoomAmenities,
   });
   const [dates, setDates] = useState<Date[]>();
   const { data: checkBookingData, isLoading: isCheckingBooking } = useQuery({
@@ -217,27 +222,33 @@ export default function RoomDetail() {
           ) : null}
         </Box>
         <Box pt={10}>
-          <Skeleton w={"100%"} isLoaded={!isLoading} height={"30px"}>
-            <Heading fontSize={"2xl"}>Amenities</Heading>
-            <Grid mt={5} gap={5} templateColumns={"repeat(2, 1fr)"}>
-              {amenities &&
-                amenities.map((amenity, index) => (
-                  <>
-                    <VStack spacing={3} alignItems={"flex-start"}>
-                      <Text fontSize={18} key={index}>
-                        {amenity.name}
-                      </Text>
-                      <Text>
-                        :{" "}
-                        {amenity.description
-                          ? amenity.description
-                          : amenity.name}
-                      </Text>
-                    </VStack>
-                  </>
-                ))}
-            </Grid>
-          </Skeleton>
+          <Heading fontSize={"2xl"}>
+            <Skeleton w={"30%"} isLoaded={!isLoading} height={"30%"}>
+              <Text>Amenities</Text>
+            </Skeleton>
+          </Heading>
+          <Container maxW={"container.xl"}>
+            <Skeleton w={"100%"} isLoaded={!isLoading} height={"30px"}>
+              <Grid mt={5} gap={5} templateColumns={"repeat(2, 1fr)"}>
+                {amenities &&
+                  amenities.map((amenity, index) => (
+                    <>
+                      <VStack spacing={2} alignItems={"flex-start"}>
+                        <Text fontSize={18} key={index}>
+                          {amenity.name}
+                        </Text>
+                        <Text>
+                          :{" "}
+                          {amenity.description
+                            ? amenity.description
+                            : amenity.name}
+                        </Text>
+                      </VStack>
+                    </>
+                  ))}
+              </Grid>
+            </Skeleton>
+          </Container>
         </Box>
       </Grid>
     </Box>

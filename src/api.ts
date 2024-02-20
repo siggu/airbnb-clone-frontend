@@ -115,6 +115,13 @@ export const signUp = ({ name, email, username, password }: ISignUpVariables) =>
 export const getAmenities = () =>
   instance.get(`rooms/amenities`).then((response) => response.data);
 
+export const getRoomAmenities = ({ queryKey }: QueryFunctionContext) => {
+  const [_, roomPk] = queryKey;
+  return instance
+    .get(`rooms/${roomPk}/amenities`)
+    .then((response) => response.data);
+};
+
 export const getCategories = () =>
   instance.get(`categories`).then((response) => response.data);
 
