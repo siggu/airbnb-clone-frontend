@@ -7,6 +7,7 @@ import GithubConfirm from "./routes/GithubConfirm";
 import KakaoConfirm from "./routes/KakaoConfirm";
 import UploadRoom from "./routes/UploadRoom";
 import UploadPhotos from "./routes/UploadPhotos";
+import NaverConfirm from "./routes/NaverConfirm";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
           {
             path: "kakao",
             element: <KakaoConfirm />,
+          },
+          {
+            path: "naver",
+            element: <NaverConfirm />,
           },
         ],
       },
