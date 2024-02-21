@@ -61,16 +61,20 @@ export default function RoomDetail() {
         sm: 10,
         lg: 20,
       }}
-      py={5}
     >
       <Helmet>
         <title>{data ? data.name : "loading..."}</title>
       </Helmet>
       <Skeleton height={"43px"} width={"100%"} isLoaded={!isLoading}>
         <Heading>{data?.name}</Heading>
+        <Box>
+          <Text>
+            {data?.country}, {data?.city}
+          </Text>
+        </Box>
       </Skeleton>
       <Grid
-        mt={7}
+        mt={10}
         rounded={"xl"}
         overflow={"hidden"}
         gap={2}
@@ -221,15 +225,17 @@ export default function RoomDetail() {
             <Text color={"red.500"}>Can't book on those dates, sorry</Text>
           ) : null}
         </Box>
-        <Box pt={10}>
+      </Grid>
+      <Box>
+        <Box pt={10} mb={10}>
           <Heading fontSize={"2xl"}>
             <Skeleton w={"30%"} isLoaded={!isLoading} height={"30%"}>
               <Text>Amenities</Text>
             </Skeleton>
           </Heading>
-          <Container maxW={"container.xl"}>
+          <Container marginX={0} maxW={"container.xl"}>
             <Skeleton w={"100%"} isLoaded={!isLoading} height={"30px"}>
-              <Grid mt={5} gap={5} templateColumns={"repeat(2, 1fr)"}>
+              <Grid mt={3} gap={5} templateColumns={"repeat(2, 1fr)"}>
                 {amenities &&
                   amenities.map((amenity, index) => (
                     <>
@@ -250,7 +256,19 @@ export default function RoomDetail() {
             </Skeleton>
           </Container>
         </Box>
-      </Grid>
+        <Box pt={10} mb={10}>
+          <Heading fontSize={"2xl"}>
+            <Skeleton w={"30%"} isLoaded={!isLoading} height={"30%"}>
+              <Text>Kind of Room</Text>
+            </Skeleton>
+          </Heading>
+          <Container marginX={0} maxW={"container.xl"}>
+            <Skeleton w={"100%"} isLoaded={!isLoading} height={"30px"}>
+              <Text mt={3}>{data?.category.name}</Text>
+            </Skeleton>
+          </Container>
+        </Box>
+      </Box>
     </Box>
   );
 }
