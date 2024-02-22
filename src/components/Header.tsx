@@ -15,6 +15,7 @@ import {
   MenuItem,
   useToast,
   ToastId,
+  Text,
 } from "@chakra-ui/react";
 import { FaAirbnb, FaMoon, FaSun } from "react-icons/fa";
 import LoginModal from "./LoginModal";
@@ -77,7 +78,7 @@ export default function Header() {
       py={5}
       px={20}
       direction={{
-        sm: "column",
+        // sm: "column",
         md: "row",
       }}
       spacing={{
@@ -91,6 +92,33 @@ export default function Header() {
           <FaAirbnb size={"48px"} />
         </Box>
       </Link>
+      <HStack
+        gap={{
+          sm: 5,
+          md: 10,
+        }}
+      >
+        <Link to={"/"}>
+          <Text
+            fontSize={{
+              sm: 15,
+              md: 18,
+            }}
+          >
+            Rooms
+          </Text>
+        </Link>
+        <Link to={"/experiences"}>
+          <Text
+            fontSize={{
+              sm: 15,
+              md: 18,
+            }}
+          >
+            Experiences
+          </Text>
+        </Link>
+      </HStack>
       <HStack spacing={"2"}>
         <IconButton
           onClick={toggleColorMode}

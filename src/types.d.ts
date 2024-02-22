@@ -10,7 +10,7 @@ export interface IRoomList {
   country: string;
   city: string;
   price: number;
-  rating: number;
+  rating: number | string;
   is_owner: boolean;
   photos: IRoomPhotoPhoto[];
 }
@@ -51,7 +51,7 @@ export interface IRoomDetail extends IRoomList {
 
 export interface IReview {
   payload: string;
-  rating: number;
+  rating: number | string;
   user: IRoomOwner;
 }
 
