@@ -15,6 +15,17 @@ export interface IRoomList {
   photos: IRoomPhotoPhoto[];
 }
 
+export interface IExperienceList {
+  pk: number;
+  name: string;
+  country: string;
+  city: string;
+  price: number;
+  rating: number | string;
+  is_host: boolean;
+  photos: IRoomPhotoPhoto[];
+}
+
 export interface IRoomOwner {
   name: string;
   avatar: string;
@@ -33,6 +44,12 @@ export interface ICategory {
   kind: string;
 }
 
+export interface IPerk {
+  name: string;
+  detail: string;
+  explanation: string;
+}
+
 export interface IRoomDetail extends IRoomList {
   created_at: string;
   updated_at: string;
@@ -40,13 +57,27 @@ export interface IRoomDetail extends IRoomList {
   toilets: number;
   description: string;
   address: string;
-  pet_friendly: true;
+  pet_friendly: boolean;
   kind: string;
   is_owner: boolean;
   is_liked: boolean;
   category: ICategory;
   owner: IRoomOwner;
   amenities: IAmenity[];
+}
+
+export interface IExperienceDetail extends IExperienceList {
+  created_at: string;
+  updated_at: string;
+  address: string;
+  pet_friendly: boolean;
+  is_host: boolean;
+  is_liked: boolean;
+  start: TimeRanges;
+  end: TimeRanges;
+  category: ICategory;
+  host: IRoomOwner;
+  perks: IPerk[];
 }
 
 export interface IReview {

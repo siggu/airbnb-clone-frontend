@@ -9,6 +9,7 @@ import UploadRoom from "./routes/UploadRoom";
 import UploadPhotos from "./routes/UploadPhotos";
 import NaverConfirm from "./routes/NaverConfirm";
 import Experiences from "./routes/Experiences";
+import ExperienceDetail from "./routes/ExperienceDetail";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "experiences",
         element: <Experiences />,
+      },
+      {
+        path: "experiences/:experiencePk",
+        element: <ExperienceDetail />,
       },
     ],
   },

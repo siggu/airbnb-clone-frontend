@@ -57,9 +57,12 @@ export default function Room({
             variant={"unstyled"}
             position={"absolute"}
             top={0}
-            right={0}
+            right={-2}
             onClick={onCameraClick}
             color={"white"}
+            _hover={{
+              color: "red.500",
+            }}
           >
             {isOwner ? (
               <FaCamera size={"20px"} />

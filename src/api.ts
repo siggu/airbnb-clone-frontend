@@ -25,6 +25,23 @@ export const getRoomReviews = ({ queryKey }: QueryFunctionContext) => {
     .then((response) => response.data);
 };
 
+export const getExperiences = () =>
+  instance.get("experiences/").then((response) => response.data);
+
+export const getExperience = ({ queryKey }: QueryFunctionContext) => {
+  const [_, experiencePk] = queryKey;
+  return instance
+    .get(`experiences/${experiencePk}`)
+    .then((response) => response.data);
+};
+
+export const getExperienceReviews = ({ queryKey }: QueryFunctionContext) => {
+  const [_, experiencePk] = queryKey;
+  return instance
+    .get(`experiences/${experiencePk}/reviews`)
+    .then((response) => response.data);
+};
+
 export const getMe = () =>
   instance.get(`users/me`).then((response) => response.data);
 
@@ -132,6 +149,13 @@ export const getRoomAmenities = ({ queryKey }: QueryFunctionContext) => {
   const [_, roomPk] = queryKey;
   return instance
     .get(`rooms/${roomPk}/amenities`)
+    .then((response) => response.data);
+};
+
+export const getExperiencePerks = ({ queryKey }: QueryFunctionContext) => {
+  const [_, experiencePk] = queryKey;
+  return instance
+    .get(`experiences/${experiencePk}/perks`)
     .then((response) => response.data);
 };
 

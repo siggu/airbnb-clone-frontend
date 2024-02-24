@@ -30,6 +30,15 @@ export default function Home() {
       {isLoading ? (
         <>
           <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
+          <RoomSkeleton />
         </>
       ) : null}
       <Helmet>
@@ -40,9 +49,7 @@ export default function Home() {
           key={room.pk}
           pk={room.pk}
           isOwner={room.is_owner}
-          imageUrl={
-            room.photos[0]?.file ?? `https://source.unsplash.com/random`
-          }
+          imageUrl={room.photos[0]?.file ?? ""}
           name={room.name}
           rating={room.rating}
           city={room.city}
