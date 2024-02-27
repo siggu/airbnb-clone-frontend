@@ -239,7 +239,7 @@ export const createPhoto = ({
 
 type CheckBookingQueryKey = [string, string?, Date[]?];
 
-export const checkBooking = ({
+export const checkRoomBooking = ({
   queryKey,
 }: QueryFunctionContext<CheckBookingQueryKey>) => {
   const [_, roomPk, dates] = queryKey;
@@ -250,6 +250,22 @@ export const checkBooking = ({
     return instance
       .get(
         `rooms/${roomPk}/bookings/check?check_in=${checkIn}&check_out=${checkOut}`
+      )
+      .then((response) => response.data);
+  }
+};
+
+export const checkExperienceBooking = ({
+  queryKey,
+}: QueryFunctionContext<CheckBookingQueryKey>) => {
+  const [_, experiencePk, dates] = queryKey;
+  if (dates) {
+    const [firstDate, secondDate] = dates;
+    const checkIn = firstDate?.toLocaleDateString("fr-CA");
+    const checkOut = secondDate?.toLocaleDateString("fr-CA");
+    return instance
+      .get(
+        `experiences/${experiencePk}/bookings/check?check_in=${checkIn}&check_out=${checkOut}`
       )
       .then((response) => response.data);
   }

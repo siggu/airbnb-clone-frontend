@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import {
+  checkExperienceBooking,
   getExperience,
   getExperiencePerks,
   getExperienceReviews,
@@ -19,8 +20,13 @@ import {
   VStack,
   Avatar,
   Container,
+  Button,
 } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
+import { useState } from "react";
+import Calendar from "react-calendar";
+
+import type { Value } from "react-calendar/dist/cjs/shared/types";
 
 export default function ExperienceDetail() {
   const { experiencePk } = useParams();
@@ -37,6 +43,13 @@ export default function ExperienceDetail() {
   const { data: perks, isLoading: isPerksLoading } = useQuery<IPerk[]>({
     queryKey: ["experiences", experiencePk, "perks"],
     queryFn: getExperiencePerks,
+  });
+  const [dates, setDates] = useState<Date[]>();
+  const { data: checkBookingData, isLoading: isCheckingBooking } = useQuery({
+    queryKey: ["check", experiencePk, dates],
+    queryFn: checkExperienceBooking,
+    enabled: dates !== undefined,
+    gcTime: 0,
   });
   return (
     <Box
@@ -179,6 +192,29 @@ export default function ExperienceDetail() {
               </Grid>
             </Container>
           </Box>
+        </Box>
+        <Box pt={10}>
+          <Calendar
+            onChange={(value: Value) => setDates(value as Date[])}
+            prev2Label={null}
+            next2Label={null}
+            minDetail="month"
+            minDate={new Date()}
+            maxDate={new Date(Date.now() + 60 * 60 * 24 * 7 * 4 * 6 * 1000)}
+            selectRange
+          />
+          <Button
+            disabled={!checkBookingData?.ok}
+            isLoading={isCheckingBooking && dates !== undefined}
+            my={5}
+            w="100%"
+            colorScheme="red"
+          >
+            Make booking
+          </Button>
+          {!isCheckingBooking && !checkBookingData?.ok ? (
+            <Text color={"red.500"}>Can't book on those dates, sorry</Text>
+          ) : null}
         </Box>
       </Grid>
       <Box>

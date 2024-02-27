@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import {
-  checkBooking,
+  checkRoomBooking,
   getRoom,
   getRoomReviews,
   getRoomAmenities,
@@ -50,7 +50,7 @@ export default function RoomDetail() {
   const [dates, setDates] = useState<Date[]>();
   const { data: checkBookingData, isLoading: isCheckingBooking } = useQuery({
     queryKey: ["check", roomPk, dates],
-    queryFn: checkBooking,
+    queryFn: checkRoomBooking,
     enabled: dates !== undefined,
     gcTime: 0,
   });
