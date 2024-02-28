@@ -8,7 +8,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { FaCamera, FaRegHeart, FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IExperienceProps {
   imageUrl: string;
@@ -31,6 +31,11 @@ export default function Experience({
   pk,
   isOwner,
 }: IExperienceProps) {
+  const navigate = useNavigate();
+  const onCameraClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    navigate(`/experiences/${pk}/photos`);
+  };
   return (
     <Link to={`/experiences/${pk}`}>
       <VStack alignItems={"flex-start"}>
@@ -51,6 +56,7 @@ export default function Experience({
             position={"absolute"}
             top={0}
             right={-2}
+            onClick={onCameraClick}
             color={"white"}
             _hover={{
               color: "red.500",

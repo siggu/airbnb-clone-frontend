@@ -1,42 +1,41 @@
 import {
-  Box,
-  Button,
   Container,
-  FormControl,
   Heading,
-  Input,
   VStack,
+  FormControl,
+  Input,
+  Button,
+  Box,
   useToast,
 } from "@chakra-ui/react";
+import { Helmet } from "react-helmet";
+import ProtectedPage from "../components/ProtectedPage";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import useHostOnlyPage from "../components/HostOnlyPage";
-import ProtectedPage from "../components/ProtectedPage";
-import { Helmet } from "react-helmet";
 import { useMutation } from "@tanstack/react-query";
-import { createPhoto, getUploadURL, uploadImage } from "../api";
+import {
+  createExperiencePhoto,
+  getExperienceUploadURL,
+  uploadImage,
+} from "../api";
+import useHostOnlyPage from "../components/HostOnlyPage";
 
-interface IForm {
-  file: FileList;
-}
-
-interface IUploadRULResponse {
+interface IUploadURLResponse {
   id: string;
   uploadURL: string;
 }
 
-export default function UploadPhotos() {
-  const { register, handleSubmit, watch, reset } = useForm<IForm>();
-  const { roomPk } = useParams();
+export default function UploadExperiencePhotos() {
+  const { register, handleSubmit, watch, reset } = useForm();
+  const { experiencePk } = useParams();
   const toast = useToast();
   const createPhotoMutation = useMutation({
-    mutationFn: createPhoto,
+    mutationFn: createExperiencePhoto,
     onSuccess: () => {
       toast({
         status: "success",
         title: "Image uploaded!",
         isClosable: true,
-        description: "Feel free to upload more images.",
       });
       reset();
     },
@@ -44,18 +43,18 @@ export default function UploadPhotos() {
   const uploadImageMutation = useMutation({
     mutationFn: uploadImage,
     onSuccess: ({ result }: any) => {
-      if (roomPk) {
+      if (experiencePk) {
         createPhotoMutation.mutate({
           description: "I love react",
           file: `http://127.0.0.1:8000/user-uploads/${result.id}`,
-          roomPk,
+          experiencePk,
         });
       }
     },
   });
   const upLoadURLMutation = useMutation({
-    mutationFn: getUploadURL,
-    onSuccess: (data: IUploadRULResponse) => {
+    mutationFn: getExperienceUploadURL,
+    onSuccess: (data: IUploadURLResponse) => {
       uploadImageMutation.mutate({
         uploadURL: data.uploadURL,
         file: watch("file"),

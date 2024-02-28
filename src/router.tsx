@@ -6,10 +6,12 @@ import RoomDetail from "./routes/RoomDetail";
 import GithubConfirm from "./routes/GithubConfirm";
 import KakaoConfirm from "./routes/KakaoConfirm";
 import UploadRoom from "./routes/UploadRoom";
-import UploadPhotos from "./routes/UploadPhotos";
+import UploadPhotos from "./routes/UploadRoomPhotos";
 import NaverConfirm from "./routes/NaverConfirm";
 import Experiences from "./routes/Experiences";
 import ExperienceDetail from "./routes/ExperienceDetail";
+import UploadExperience from "./routes/UploadExperience";
+import UploadExperiencePhotos from "./routes/UploadExperiencePhotos";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
       {
         path: "experiences/:experiencePk",
         element: <ExperienceDetail />,
+      },
+      {
+        path: "experiences/upload",
+        element: <UploadExperience />,
+      },
+      {
+        path: "experiences/:experiencePk/photos",
+        element: <UploadExperiencePhotos />,
       },
     ],
   },

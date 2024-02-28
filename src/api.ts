@@ -186,9 +186,9 @@ export const uploadRoom = (variables: IUploadRoomVariables) =>
     })
     .then((response) => response.data);
 
-export const getUploadURL = () =>
+export const getRoomUploadURL = () =>
   instance
-    .post(`medias/photos/get-url`, null, {
+    .post(`medias/photos/get-room-url`, null, {
       headers: {
         "X-CSRFToken": Cookie.get("csrftoken") || "",
       },
@@ -213,20 +213,75 @@ export const uploadImage = ({ file, uploadURL }: IUploadImageVariables) => {
     .then((response) => response.data);
 };
 
-export interface ICreatePhotoVariables {
+export interface ICreateRoomPhotoVariables {
   description: string;
   file: string;
   roomPk: string;
 }
 
-export const createPhoto = ({
+export const createRoomPhoto = ({
   description,
   file,
   roomPk,
-}: ICreatePhotoVariables) =>
+}: ICreateRoomPhotoVariables) =>
   instance
     .post(
       `rooms/${roomPk}/photos`,
+      { description, file },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookie.get("csrftoken") || "",
+        },
+      }
+    )
+    .then((response) => response.data);
+
+export interface IUploadExperienceVariables {
+  country: string;
+  city: string;
+  name: string;
+  host: boolean;
+  pet_friendly: boolean;
+  price: number;
+  address: string;
+  description: string;
+  perks: number[];
+  category: number;
+}
+
+export const uploadExperience = (variables: IUploadExperienceVariables) =>
+  instance
+    .post(`experiences/`, variables, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);
+
+export const getExperienceUploadURL = () =>
+  instance
+    .post(`medias/photos/get-experience-url`, null, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);
+
+export interface ICreateExperiencePhotoVariables {
+  description: string;
+  file: string;
+  experiencePk: string;
+}
+
+export const createExperiencePhoto = ({
+  description,
+  file,
+  experiencePk,
+}: ICreateExperiencePhotoVariables) =>
+  instance
+    .post(
+      `experiences/${experiencePk}/photos`,
       { description, file },
       {
         headers: {
