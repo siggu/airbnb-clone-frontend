@@ -152,6 +152,9 @@ export const getRoomAmenities = ({ queryKey }: QueryFunctionContext) => {
     .then((response) => response.data);
 };
 
+export const getPerks = () =>
+  instance.get(`experiences/perks`).then((response) => response.data);
+
 export const getExperiencePerks = ({ queryKey }: QueryFunctionContext) => {
   const [_, experiencePk] = queryKey;
   return instance

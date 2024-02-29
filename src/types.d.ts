@@ -45,6 +45,7 @@ export interface ICategory {
 }
 
 export interface IPerk {
+  pk: number;
   name: string;
   detail: string;
   explanation: string;
