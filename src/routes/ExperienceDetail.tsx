@@ -77,7 +77,9 @@ export default function ExperienceDetail() {
             <Skeleton height={'100%'} width={'100%'} isLoaded={!isLoading}>
               {data?.photos && data.photos.length > 0 ? (
                 <Image objectFit={'cover'} w={'100%'} h={'100%'} src={data?.photos[index].file} />
-              ) : null}
+              ) : (
+                <Image src="https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg" />
+              )}
             </Skeleton>
           </GridItem>
         ))}
